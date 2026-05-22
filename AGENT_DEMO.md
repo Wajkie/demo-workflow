@@ -14,7 +14,7 @@ The MCP server must have these Railway env vars set:
 
 > List all repositories available, then show me the open pull requests in demo-workflow.
 
-**Tools fired:** `list_repos`, `list_pull_requests`
+**Tools fired:** `list_repositories`, `list_pull_requests`
 
 ---
 
@@ -22,29 +22,31 @@ The MCP server must have these Railway env vars set:
 
 > Get the details of PR #1 in demo-workflow, including all changed files and their diffs.
 
-**Tools fired:** `get_pull_request`, `get_changed_files`
+**Tools fired:** `get_pr`, `get_changed_files`
 
 ---
 
 ## Step 3 — Lint the code
 
-> Lint src/users.ts in the demo-workflow repo and tell me what issues you find.
+> Fetch src/users.ts from the demo-workflow repo (default branch) and lint it. Tell me what issues you find.
 
-**Tools fired:** `lint_file`
+**Tools fired:** `get_file`, `lint_code`
 
 Expected findings:
-- Unused variable `DB_VERSION`
-- `any` type on `newUser`
+- Missing semicolons (`semi` rule — auto-fixable)
+- Unused variable `DB_VERSION` (`no-unused-vars`)
+- `any` type on `newUser` (`no-explicit-any`)
 
 ---
 
 ## Step 4 — Apply the safe fixes
 
-> Apply the auto-fixable lint issues in src/users.ts in demo-workflow.
+> Fetch src/users.ts from demo-workflow on the feature/add-delete-endpoint branch and apply auto-fixable lint fixes directly to that branch.
 
-**Tools fired:** `apply_safe_fixes`
+**Tools fired:** `get_file`, `apply_safe_fixes`
 
-This writes a commit directly to the `feature/add-delete-endpoint` branch.
+This writes a commit directly to the existing `feature/add-delete-endpoint` branch.
+Only `semi` violations are auto-fixable; `no-unused-vars` and `no-explicit-any` are reported but not rewritten.
 
 ---
 
@@ -61,7 +63,7 @@ This writes a commit directly to the `feature/add-delete-endpoint` branch.
 
 > What is the latest release of demo-workflow and what does it include?
 
-**Tools fired:** `get_latest_release`
+**Tools fired:** `get_release_status`
 
 ---
 
