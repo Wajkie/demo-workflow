@@ -1,5 +1,5 @@
 import { Router, Request, Response } from "express";
-import { getUsers, getUserById, createUser } from "./users.js";
+import { getUsers, getUserById, createUser, deleteUser } from "./users.js";
 import { logger } from "./logger.js";
 
 export const router = Router();
@@ -29,4 +29,15 @@ router.post("/users", (req: Request, res: Response) => {
   const user = createUser(name, email);
   logger.info({ msg: "created user", id: user.id });
   res.status(201).json(user);
+});
+
+router.delete("/users/:id", (req: Request, res: Response) => {
+  const id = parseInt(req.params["id"] ?? "", 10);
+  const removed = deleteUser(id);
+  if (!removed) {
+    res.status(404).json({ error: "User not found" });
+    return;
+  }
+  logger.info({ msg: "deleted user", id });
+  res.status(204).end();
 });
