@@ -30,3 +30,8 @@ router.post("/users", (req: Request, res: Response) => {
   logger.info({ msg: "created user", id: user.id });
   res.status(201).json(user);
 });
+
+
+router.get("/health", (_req: Request, res: Response) => {
+  res.json({ status: "ok" });
+});
