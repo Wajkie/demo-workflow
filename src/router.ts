@@ -4,6 +4,10 @@ import { logger } from "./logger.js";
 
 export const router = Router();
 
+router.get("/health", (_req: Request, res: Response) => {
+  res.json({ status: "ok" });
+});
+
 router.get("/users", (_req: Request, res: Response) => {
   const users = getUsers();
   logger.info({ msg: "list users", count: users.length });
@@ -29,9 +33,4 @@ router.post("/users", (req: Request, res: Response) => {
   const user = createUser(name, email);
   logger.info({ msg: "created user", id: user.id });
   res.status(201).json(user);
-});
-
-
-router.get("/health", (_req: Request, res: Response) => {
-  res.json({ status: "ok" });
 });
