@@ -1,0 +1,25 @@
+{
+  "name": "demo-workflow",
+  "version": "0.1.0",
+  "description": "Demo API for github-workflow-mcp showcase",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx src/index.ts",
+    "build": "tsc",
+    "start": "node dist/index.js",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pino": "^8.19.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.0",
+    "typescript": "^5.3.3",
+    "tsx": "^4.7.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
+    "eslint": "^8.56.0"
+  }
+}
